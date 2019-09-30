@@ -1,4 +1,4 @@
 module.exports = {
-  TIMEOUT: 3,  // terminal cpu time limit (seconds)
+  TIMEOUT: 4,  // terminal cpu time limit (seconds)
   LOG: true   // logging
 }

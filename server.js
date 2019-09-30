@@ -46,9 +46,27 @@ app.post('/compile/', async (req, res, next) => {
 
     // create files
     for (let file of files) {
-      await fs.writeFile(`${dirname}/${file.name}.java`, file.content)
-      winston.log('info', `created file ${dirname}/${file.name}.java`)
-    }
+      if (file.language === "Java"){
+        await fs.writeFile(`${dirname}/${file.name}.java`, file.content)
+        winston.log('info', `created file ${dirname}/${file.name}.java`)
+      } else if (file.language === "Python 3"){
+        await fs.writeFile(`${dirname}/${file.name}.py`, file.content)
+        winston.log('info', `created file ${dirname}/${file.name}.py`)
+      } else if (file.language === "C++"){
+        await fs.writeFile(`${dirname}/${file.name}.cpp`, file.content)
+        winston.log('info', `created file ${dirname}/${file.name}.cpp`)
+      } else if (file.language === "PSeInt (Perfil UNINORTE)"){
+        await fs.writeFile(`${dirname}/${file.name}.psc`, file.content)
+        winston.log('info', `created file ${dirname}/${file.name}.psc`)
+      }
+      
+      // create .txt input files (if needed)
+      if (!(file.input === "")){
+        // has input
+        await fs.writeFile(`${dirname}/input.txt`, file.input)
+        winston.log('info', `created file ${dirname}/input.txt`)
+      }
+    }    
 
     // compile and run
     let result = await compilr.compile(dirname, files)
@@ -64,10 +82,16 @@ app.post('/compile/', async (req, res, next) => {
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   winston.log('error', err.message)
+  res.status(500).json({
+    message: err.message,
+    error: err
+  })
+/*
   res.status(500).render('error', {
     message: err.message,
     error: err
   })
+*/
 })
 
 // Start server

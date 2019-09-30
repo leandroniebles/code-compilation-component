@@ -1,0 +1,12 @@
+Este archivo se escribió con el fin de documentar por escrito la única modificación realizada en el código fuente de PSeInt, incluido en el siguiente repositorio:
+
+https://github.com/leandroniebles/code-compilation-component.git
+
+Y de esta forma, dar cumplimiento a uno de los requerimientos de GNU General Public License v2 para poder incluir el proyecto pseint con modificaciones en el repositorio mencionado anteriormente, ya que el proyecto pseint tiene licenciamiento GNU General Public License v2.
+
+Cambio realizado:
+-----------------
+Se renombró el directorio "pseint" a "pseint-code", y en la línea 132 de "pseint-code/pseint/Ejecutar.cpp" se hizo el siguiente cambio:
+
+DE:	cout<<"> "<<flush;
+A: 	cout<<flush;

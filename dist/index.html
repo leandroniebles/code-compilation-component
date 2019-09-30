@@ -9,8 +9,37 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style>
+      	.flex-container-workspace{
+      		display:flex;
+		/*background-color:DodgerBlue;*/
+		margin:20px;
+	}
+        .flex-container-workspace-leftside{
+      		display:flex;
+		flex-direction:column;
+		/*background-color:Red;*/
+		width:50%;
+		margin-right:20px;
+	}
+	.flex-container-workspace-rightside{
+      		display:flex;
+		flex-direction:column;
+		/*background-color:Yellow;*/
+		width:50%;
+	}
+	.flex-container-workspace-leftside > div{
+		/*background-color:#f1f1f1;*/
+		margin-bottom:4px;		
+	}
+	.flex-container-workspace-rightside > div{
+		/*background-color:#f1f1f1;*/
+		
+	}
+    </style>
   </head>
   <body>
+<!--
     <div style="display: flex; margin: 20px;" >
       <div style="width: 50%; margin-right: 20px">
       <div id="editor" style="height: 500px;"></div>
@@ -18,12 +47,44 @@
       </div>
       <textarea readonly id="result" style="font-family: monospace;background: black; width: 50%;color: rgb(10, 204, 0); padding: 18px; font-size: 18px"></textarea>
     </div>
+-->
+    <div class="flex-container-workspace">
+	<div class="flex-container-workspace-leftside">
+		<div><label class="control-label">Lenguaje</label></div>
+		<div><select class="form-control" id="languageSelector">
+			<option selected>Java</option>
+			<option>Python 3</option>
+			<option>C++</option>
+			<option>PSeInt (Perfil UNINORTE)</option>
+		</select></div>
+		<div><label class="control-label">Ingrese su c&oacute;digo aqu&iacute;:</label></div>
+		<div id="editor" style="height: 440px; font-size: 14px"></div>
+		<div><label class="control-label">Ingrese sus datos de entrada aqu&iacute;:</label></div>
+		<div id="inputText" style="height: 70px; font-size: 14px"></div>
+<!--
+		<div>
+<textarea id="inputText" style="font-family: monospace;background: white; color: black; padding: 12px; width:100%; font-size: 14px;"></textarea>
+</div>
+-->
+		<div>
+		    <button id="submit_btn" style="width: 100%;font-size: 26px; margin-top:4px;" type="submit" class="btn btn-primary">Ejecutar</button>
+		</div>
+	</div>
+	<div class="flex-container-workspace-rightside d-flex">
+		<div>
+		    <textarea readonly id="result" style="font-family: monospace;background: black; color: rgb(10, 204, 0); padding: 14px; width:100%; font-size: 14px; height: 699px;">
+		    </textarea>
+		</div>
+	</div>	
+    </div>
 
     <script src="./lib/ace.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
       $(function() {
         var editor = ace.edit("editor");
         editor.resize();
+	var inputEditor = ace.edit("inputText");
+        inputEditor.resize();
         $('#submit_btn').click(function() {
           $.ajax({
             url: '/compile',
@@ -31,7 +92,9 @@
             data: {
               files: [{
                 name: 'Run',
-                content: editor.getValue()
+                content: editor.getValue(),
+		input: inputEditor.getValue(),
+                language: languageSelector.options[languageSelector.selectedIndex].text
               }]
             }
           })

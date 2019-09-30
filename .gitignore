@@ -1,6 +1,10 @@
 /run
 
 # Created by https://www.gitignore.io/api/node
+# Modified to include unneeded PSeInt backup files
+
+### PSeInt ###
+pseint-backup
 
 ### Node ###
 # Logs
