@@ -115,7 +115,7 @@ If there is a compile/run error, success field will be `false` and the error out
 ---
 ***This project, of course, provides a simple code editor frontend on your https://localhost:8080***
 
-![frontend image](https://github.com/kykungz/compilr/blob/master/compilr.png)
+![frontend image](https://github.com/leandroniebles/code-compilation-component/blob/master/demo-image.png)
 
 # Configuration
 `config.js`
